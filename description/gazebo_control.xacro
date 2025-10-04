@@ -8,23 +8,80 @@
             <left_joint>left_wheel_joint</left_joint>
             <right_joint>right_wheel_joint</right_joint>
             <wheel_separation>0.35</wheel_separation>
-            <wheel_diameter>0.1</wheel_diameter>
+            <wheel_radius>0.05</wheel_radius>
 
 
             <!-- Limits -->
+            <!--
             <max_wheel_torque>200</max_wheel_torque>
             <max_wheel_acceleration>10.0</max_wheel_acceleration>
+            -->
 
-            
+            <joint name="left_wheel_joint" type="revolute">
+                <parent>base_link</parent>
+                <child>left_wheel_link</child>
+                <pose>0.0 -0.144 0.023 -1.57 0 0</pose>
+                <axis>
+                    <xyz>0 0 1</xyz>
+                    <limit>
+                        <effort>20</effort> <!-- from <wheel_torque> in libgazebo_ros_diff_drive.so.-->
+                    </limit>
+                </axis>
+            </joint>
+
+            <joint name="right_wheel_joint" type="revolute">
+                <parent>base_link</parent>
+                <child>right_wheel_link</child>
+                <pose>0.0 -0.144 0.023 -1.57 0 0</pose>
+                <axis>
+                    <xyz>0 0 1</xyz>
+                    <limit>
+                        <effort>20</effort> <!-- from <wheel_torque> in libgazebo_ros_diff_drive.so.-->
+                    </limit>
+                </axis>
+            </joint>
+
+            <max_linear_acceleration>10.0</max_linear_acceleration>
+            <max_angular_acceleration>200</max_angular_acceleration>
+            <max_acceleration>10.0</max_acceleration>
+
+
             <!-- Output -->
+            <!--
             <odometry_frame>odom</odometry_frame>
             <robot_base_frame>base_link</robot_base_frame>
 
             <publish_odom>true</publish_odom>
             <publish_odom_tf>true</publish_odom_tf>
             <publish_wheel_tf>true</publish_wheel_tf>
+            -->
+            <topic>cmd_vel</topic>
+
+            <odom_topic>/odom</odom_topic>
+            <frame_id>odom</frame_id>
+
+            <child_frame_id>base_link</child_frame_id>
+
+            <odom_publisher_frequency>30</odom_publisher_frequency>
+            <tf_topic>/tf</tf_topic>
+
+            <publish_odom>true</publish_odom>
+            <publish_odom_tf>true</publish_odom_tf>
+            <publish_wheel_tf>true</publish_wheel_tf>
+          
 
         </plugin>
+
+        <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher">
+            <topic>joint_states</topic>
+            <joint_name>left_wheel_joint</joint_name>
+            <joint_name>right_wheel_joint</joint_name>
+        
+        
+        </plugin>
+
+
+
     </gazebo>
 
 
