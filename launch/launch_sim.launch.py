@@ -55,9 +55,17 @@ def generate_launch_description():
                                        'x': '0.0', 'y': '0.0', 'z': '0.05'}.items()
     )
 
+    bridge = IncludeLaunchDescription(
+                PythonLaunchDescriptionSource([os.path.join(
+                    get_package_share_directory('ros_gz_bridge'), 'launch', 'ros_gz_bridge.launch.py'
+                )]), launch_arguments={'bridge_name': 'ros_gz_bridge', 
+                                       'config_file': 'src/my_bot/config/my_bot_bridge.yaml'}.items()
+    )
+
     # Launch them all!
     return LaunchDescription([
         rsp,
         gazebo,
         spawn_entity,
+        bridge,
     ])
