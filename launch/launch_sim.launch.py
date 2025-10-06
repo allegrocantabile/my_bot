@@ -59,7 +59,7 @@ def generate_launch_description():
                 PythonLaunchDescriptionSource([os.path.join(
                     get_package_share_directory('ros_gz_bridge'), 'launch', 'ros_gz_bridge.launch.py'
                 )]), launch_arguments={'bridge_name': 'ros_gz_bridge', 
-                                       'config_file': 'src/my_bot/config/my_bot_bridge.yaml'}.items()
+                                       'config_file': '/home/haku/robot_ws/src/my_bot/config/my_bot_bridge.yaml'}.items()
     )
 
     # Launch them all!
